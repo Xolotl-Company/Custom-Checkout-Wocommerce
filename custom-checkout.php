@@ -151,10 +151,6 @@ function ccp_add_print_button_on_thank_you_page( $order_id ) {
                     pointer-events: none;
                     color: black; /* Asegura que el texto no sea azul */
                 }
-                /* Ocultar el botón de impresión */
-                .print-button-ticket {
-                    display: none !important;
-                }
             }
         </style>
         <script type="text/javascript">
@@ -168,12 +164,11 @@ function ccp_add_print_button_on_thank_you_page( $order_id ) {
                             link.style.color = 'black'; // Asegura que el texto no sea azul
                         });
                         window.print(); // Inicia la impresión cuando se hace clic en el botón
+                        // Redirigir a la página principal después de la impresión
+                        window.onafterprint = function() {
+                            window.location.href = '<?php echo site_url(); ?>';
+                        };
                     });
-
-                    // Redirigir después de la impresión
-                    window.onafterprint = function() {
-                        window.location.href = '<?php echo esc_url(home_url('/')); ?>'; // Redirige a la página principal
-                    };
                 }
             });
         </script>
@@ -181,4 +176,3 @@ function ccp_add_print_button_on_thank_you_page( $order_id ) {
     }
 }
 add_action( 'woocommerce_thankyou', 'ccp_add_print_button_on_thank_you_page' );
-
