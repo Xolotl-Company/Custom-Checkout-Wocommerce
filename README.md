@@ -1,5 +1,10 @@
  # Custom Checkout Plugin by Xolotl Tech
 
+ ## Acerca de Xolotl Tech
+
+**Xolotl Tech** es una empresa dedicada a la creación de soluciones tecnológicas personalizadas. Con años de experiencia en desarrollo de plugins y temas para WordPress, nos especializamos en mejorar la funcionalidad de tu sitio web para adaptarse a las necesidades de tu negocio.
+
+
 ## Description
 
 **Custom Checkout Plugin** es un plugin desarrollado por **Xolotl Tech** que permite personalizar el proceso de checkout en WooCommerce. Con este plugin, puedes eliminar campos innecesarios en el formulario de pago, deshabilitar el envío, y añadir un botón de impresión personalizado en la página de agradecimiento. El objetivo es simplificar el proceso de compra y mejorar la experiencia del usuario.
@@ -47,12 +52,8 @@ Las contribuciones son bienvenidas. Si deseas mejorar el plugin o reportar un pr
 
 ## Soporte
 
-Para soporte o preguntas, puedes contactarnos en [soporte@xolotltech.com](mailto:soporte@xolotltech.com) o visitar nuestra página web en [Xolotl Tech](https://www.xolotltech.com).
+Para soporte o preguntas, puedes contactarnos en [soporte@xolotl.mx](mailto:soporte@xolotl.mx) o visitar nuestra página web en [Xolotl Tech](https://www.xolotl.mx).
 
 ## Licencia
 
 Este plugin está licenciado bajo la [GPL2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html). 
-
-## Acerca de Xolotl Tech
-
-**Xolotl Tech** es una empresa dedicada a la creación de soluciones tecnológicas personalizadas. Con años de experiencia en desarrollo de plugins y temas para WordPress, nos especializamos en mejorar la funcionalidad de tu sitio web para adaptarse a las necesidades de tu negocio.
