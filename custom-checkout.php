@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Custom Checkout Plugin
  * Description: Personaliza el proceso de checkout de WooCommerce.
- * Version: 1.0
+ * Version: 1.0.1
  * Author: Xolotl Tech
  * License: GPL2
  */
@@ -133,29 +133,86 @@ function ccp_add_print_button_on_thank_you_page( $order_id ) {
     if ( isset( $options['enable_print_button'] ) && $options['enable_print_button'] ) {
         ?>
         <style>
+            /* Ocultar el botón de imprimir en la página de finalizar compra */
+            .print-button-ticket {
+                display: none;
+            }
+
             @media print {
                 /* Ocultar header y footer durante la impresión */
                 header, footer, .site-header, .site-footer, .header, .footer {
                     display: none !important;
                 }
+
                 /* Asegurar que el contenido de la página de agradecimiento se muestre */
                 .woocommerce-order-received {
                     display: block;
                 }
+
                 /* Eliminar el label de vendedor */
                 .woocommerce-order-items .order_item .product_meta {
                     display: none !important;
                 }
+
                 /* Eliminar todos los enlaces */
                 .woocommerce-table.shop_table td a {
                     pointer-events: none;
                     color: black; /* Asegura que el texto no sea azul */
                 }
+
+                /* Ocultar el botón de imprimir ticket y su texto */
+                .print-button-ticket {
+                    display: none !important;
+                }
+            }
+
+            /* Estilos personalizados para el botón de imprimir */
+            .print-button-ticket {
+                display: inline-block;
+                font-weight: 600;
+                color: #E5E5E5;
+                text-align: center;
+                white-space: nowrap;
+                user-select: none;
+                background-color: #E93E01;
+                border: none;
+                padding: 15px;
+                font-size: 20px;
+                border-radius: 16px;
+                transition: all .3s;
+                width: 100%;
+            }
+
+            /* Estilos para el hover del botón de imprimir */
+            .print-button-ticket:hover {
+                display: inline-block;
+                font-weight: 600;
+                color: #E5E5E5;
+                text-align: center;
+                white-space: nowrap;
+                user-select: none;
+                background-color: #648257; /* Cambia el color de fondo al pasar el mouse */
+                border: none;
+                padding: 15px;
+                font-size: 20px;
+                border-radius: 16px;
+                transition: all .3s;
+                width: 100%;
             }
         </style>
+
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function () {
                 var printButton = document.querySelector('.print-button-ticket');
+
+                // Mostrar el botón solo en la página de agradecimiento
+                var thankYouPage = document.querySelector('.woocommerce-order-received');
+                if (thankYouPage && printButton) {
+                    printButton.style.display = 'inline-block'; // Muestra el botón en la página de agradecimiento
+                } else if (printButton) {
+                    printButton.style.display = 'none'; // Oculta el botón en cualquier otra página
+                }
+
                 if (printButton) {
                     printButton.addEventListener('click', function() {
                         // Eliminar todos los enlaces en los títulos de productos antes de imprimir
@@ -164,10 +221,11 @@ function ccp_add_print_button_on_thank_you_page( $order_id ) {
                             link.style.color = 'black'; // Asegura que el texto no sea azul
                         });
                         window.print(); // Inicia la impresión cuando se hace clic en el botón
-                        // Redirigir a la página principal después de la impresión
-                        window.onafterprint = function() {
-                            window.location.href = '<?php echo site_url(); ?>';
-                        };
+
+                        // Redireccionar al usuario a la página principal después de la impresión
+                        window.addEventListener('afterprint', function() {
+                            window.location.href = '<?php echo esc_url(home_url('/')); ?>';
+                        });
                     });
                 }
             });
@@ -176,3 +234,14 @@ function ccp_add_print_button_on_thank_you_page( $order_id ) {
     }
 }
 add_action( 'woocommerce_thankyou', 'ccp_add_print_button_on_thank_you_page' );
+
+
+
+
+// Mostrar el botón de imprimir solo después del mensaje de agradecimiento
+function ccp_display_print_button_after_thank_you() {
+    ?>
+    <button class="print-button-ticket">Imprimir Ticket</button>
+    <?php
+}
+add_action( 'woocommerce_thankyou', 'ccp_display_print_button_after_thank_you', 20 );
